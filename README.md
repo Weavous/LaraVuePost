@@ -1,5 +1,5 @@
 <p align="center">
-    Laravel Boilerplate with
+    Laravel application made with
     <a href="https://www.laravel.com">
         <img src="https://raw.githubusercontent.com/MagicalStrangeQuark/MagicalStrangeQuark/master/assets/laravel.svg" width="10%">
     </a>
