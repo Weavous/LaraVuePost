@@ -18,8 +18,8 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' =>  Str::random(32),
-            'text' => Str::random(64)
+            'name' => $this->faker->realText(32),
+            'text' => $this->faker->realText(128)
         ];
     }
 
@@ -33,7 +33,7 @@ class PostFactory extends Factory
     {
         return $this->state(function (array $attributes) use ($user) {
             return [
-                'user_id' => $user instanceof User ? $user->id : User::factory(1)->create()->first()->id,
+                'user_id' => $user instanceof User ? $user->id : User::factory(1)->avatar()->create()->first()->id,
             ];
         });
     }

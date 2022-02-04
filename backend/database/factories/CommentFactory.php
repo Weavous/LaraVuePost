@@ -20,7 +20,7 @@ class CommentFactory extends Factory
     public function definition(): array
     {
         return [
-            'text' => Str::random(128)
+            'text' => $this->faker->realText(128)
         ];
     }
 
@@ -33,7 +33,7 @@ class CommentFactory extends Factory
     {
         return $this->state(function (array $attributes) use ($user) {
             return [
-                'user_id' => $user instanceof User ? $user->id : User::factory(1)->create()->first()->id,
+                'user_id' => $user instanceof User ? $user->id : User::factory(1)->avatar()->create()->first()->id,
             ];
         });
     }

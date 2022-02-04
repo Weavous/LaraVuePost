@@ -36,4 +36,13 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function avatar()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'avatar' => sprintf('https://randomuser.me/api/portraits/%s/%d.jpg',  rand(0, 1) % 1 === 0 ?  "men" : "women", rand(0, 99))
+            ];
+        });
+    }
 }
