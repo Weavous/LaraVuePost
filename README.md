@@ -32,9 +32,15 @@
     git clone https://github.com/Weavous/LaraVuePost
 ```
 
-<p align="center">After clone the repository, configure the environment variables</p>
+<p align="center">Copy the environment variables example file</p>
 
 ```bash
+    cp backend/.env.example backend/.env
+```
+
+<p align="center">After clone the repository, configure the environment variables</p>
+
+```txt
     DB_CONNECTION=mysql
 
     DB_HOST=laravuepost_mysql_1
