@@ -42,15 +42,10 @@
 
 ```txt
     DB_CONNECTION=mysql
-
     DB_HOST=laravuepost_mysql_1
-
     DB_PORT=3306
-
     DB_DATABASE=laravel
-
     DB_USERNAME=root
-
     DB_PASSWORD=secret
 ```
 
@@ -71,6 +66,9 @@
 ```bash
     docker-compose run --rm artisan key:generate
 ```
+<p>You can open Laravel application in <strong>localhost:8080</strong></p>
+
+<p>You can open Vue application in <strong>localhost:8081</strong></p>
 
 <h4 align="center">Topics</h4>
 
