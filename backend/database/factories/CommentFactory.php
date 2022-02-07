@@ -59,11 +59,9 @@ class CommentFactory extends Factory
      */
     public function comment(?Comment $comment = NULL)
     {
-        $comment = rand(0, 4) % 3 === 0 ? Comment::factory()->count(1)->user()->post() : Comment::factory()->count(1)->user()->post()->comment();
-
         return $this->state(function (array $attributes) use ($comment) {
             return [
-                'comment_id' => $comment instanceof Comment ? $comment->id : $comment->create()->first()->id,
+                'comment_id' => $comment instanceof Comment ? $comment->id : Comment::factory()->count(1)->user()->post()->comment()
             ];
         });
     }

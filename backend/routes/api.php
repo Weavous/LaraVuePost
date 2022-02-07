@@ -1,9 +1,12 @@
 <?php
 
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReplyController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::resource('posts', PostController::class);
     Route::resource('comments', CommentController::class);
+    Route::resource('replies', ReplyController::class);
+    Route::resource('users', UserController::class);
 });

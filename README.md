@@ -66,6 +66,13 @@
 ```bash
     docker-compose run --rm artisan key:generate
 ```
+
+<p align="center">Run Laravel tests</p>
+
+```bash
+    docker-compose run --rm artisan test
+```
+
 <p>You can open Laravel application in <strong>localhost:8080</strong></p>
 
 <p>You can open Vue application in <strong>localhost:8081</strong></p>

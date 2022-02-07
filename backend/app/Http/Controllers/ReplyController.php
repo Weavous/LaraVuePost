@@ -7,22 +7,22 @@ use Illuminate\Http\JsonResponse;
 
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Post;
+use App\Models\Comment;
 
-use App\Http\Resources\PostResource;
+use App\Http\Resources\CommentResource;
 
-class PostController extends Controller
+use Symfony\Component\HttpFoundation\Response;
+
+class ReplyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index()
     {
-        return response()->json(
-            PostResource::collection(Post::all())
-        );
+        //
     }
 
     /**
@@ -31,21 +31,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
-        return response()->json([]);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post): JsonResponse
+    public function show($id): JsonResponse
     {
         return response()->json(
-            new PostResource($post)
+            CommentResource::collection(Comment::replyTo(Comment::findOrFail($id))->get())
         );
     }
 
@@ -53,22 +52,22 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post): JsonResponse
+    public function update(Request $request, $id)
     {
-        return response()->json([]);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post): JsonResponse
+    public function destroy($id)
     {
-        return response()->json([]);
+        //
     }
 }

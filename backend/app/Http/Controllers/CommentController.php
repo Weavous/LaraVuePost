@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\Comment;
+use App\Models\Post;
 
 use App\Http\Resources\CommentResource;
+
+use Symfony\Component\HttpFoundation\Response;
 
 class CommentController extends Controller
 {
@@ -31,7 +36,27 @@ class CommentController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        return response()->json([]);
+        $payload = $request->only((new Comment())->getFillable());
+
+        $validator = Validator::make($payload, [
+            'comment_id' => 'required|exists:comments,id',
+            'user_id' => 'required|exists:users,id',
+            'text' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => json_decode($validator->errors()->toJson())
+            ], Response::HTTP_BAD_REQUEST)->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }
+
+        $resource = Comment::create([
+            ...$payload,
+            'post_id' => Comment::find($request->comment_id)->post_id
+        ]);
+
+        return response()->json($resource, Response::HTTP_CREATED);
     }
 
     /**

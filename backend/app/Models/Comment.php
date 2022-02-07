@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Comment extends Model
 {
@@ -45,6 +47,11 @@ class Comment extends Model
         return $this->belongsTo(Comment::class);
     }
 
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
@@ -53,5 +60,10 @@ class Comment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeReplyTo(Builder $builder, Comment $comment)
+    {
+        return $builder->where('comment_id', $comment->id);
     }
 }

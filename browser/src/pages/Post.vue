@@ -1,5 +1,4 @@
 <template>
-  <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col">
   <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -29,7 +28,7 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ post.comments.length }}</td>
             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <a href="#" class="text-indigo-600 hover:text-indigo-900">Open</a>
+              <router-link :to="`/posts/${post.id}`" class="text-indigo-600 hover:text-indigo-900">Open</router-link>
             </td>
           </tr>
         </tbody>

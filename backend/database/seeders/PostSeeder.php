@@ -16,10 +16,10 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory()->count(2)->user()->create()->map(function (Post $post) {
-            Comment::factory()->count(2)->post($post)->comment(
-                Comment::factory()->count(2)->post($post)->user()->create()->first()
-            )->user()->create();
+        Post::factory()->count(4)->user()->create()->map(function (Post $post) {
+            Comment::factory()->count(1)->post($post)->user()->create()->map(function (Comment $comment) use ($post) {
+                Comment::factory()->count(4)->post($post)->comment($comment)->user()->create();
+            });
         });
     }
 }

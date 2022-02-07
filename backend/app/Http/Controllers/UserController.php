@@ -7,11 +7,9 @@ use Illuminate\Http\JsonResponse;
 
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Post;
+use App\Models\User;
 
-use App\Http\Resources\PostResource;
-
-class PostController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +18,7 @@ class PostController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(
-            PostResource::collection(Post::all())
-        );
+        return response()->json(User::all());
     }
 
     /**
@@ -31,44 +27,42 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
-        return response()->json([]);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post): JsonResponse
+    public function show(User $user)
     {
-        return response()->json(
-            new PostResource($post)
-        );
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post): JsonResponse
+    public function update(Request $request, User $user)
     {
-        return response()->json([]);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post): JsonResponse
+    public function destroy(User $user)
     {
-        return response()->json([]);
+        //
     }
 }
