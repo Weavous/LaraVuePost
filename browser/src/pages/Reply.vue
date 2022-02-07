@@ -93,6 +93,14 @@ export default {
   methods: {
     replyTo() {
       if (typeof this.replier.id === typeof undefined) {
+        alert("Please, choose an user!");
+
+        return false;
+      }
+
+      if (typeof this.reply.text.length === 0) {
+        alert("The reply content cannot be empty!");
+
         return false;
       }
 
@@ -101,7 +109,11 @@ export default {
         text: this.reply.text,
         user_id : this.replier.id
       }).then((response) => {
-        console.log(response);
+        this.replies.push({
+          created_at: response.data.created_at,
+          text: response.data.text,
+          user: this.replier
+        });
       });
     },
     choose(user) {
