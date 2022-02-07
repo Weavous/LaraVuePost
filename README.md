@@ -73,6 +73,12 @@
     docker-compose run --rm artisan test
 ```
 
+<p align="center">Inside Browser Directory, Start Vue application</p>
+
+```bash
+    npm run dev
+```
+
 <p>You can open Laravel application in <strong>localhost:8080</strong></p>
 
 <p>You can open Vue application in <strong>localhost:8081</strong></p>
