@@ -55,7 +55,7 @@
     docker-compose up -d --build
 ```
 
-<p align="center">Run Laravel migrations</p>
+<p align="center">Run Laravel migrations/seeders</p>
 
 ```bash
     docker-compose run --rm artisan migrate:fresh --seed
