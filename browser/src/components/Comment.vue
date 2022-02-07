@@ -21,7 +21,7 @@
             </div>
 
             <div>
-                <router-link :to="`/comments/${id}`" class="relative bg-gray-500 text-white p-3 rounded-lg text-sm uppercase font-semibold tracking-tight overflow-visible" @click="reply(id)">Reply <div class="absolute -top-3 -right-3 px-2.5 py-0.5 bg-green-500 rounded-full text-xs">{{ replies }}</div></router-link>
+                <router-link :to="`/comments/${id}`" class="relative bg-gray-500 text-white p-3 rounded-lg text-sm uppercase font-semibold tracking-tight overflow-visible">Reply</router-link>
             </div>
         </div>
     </div>

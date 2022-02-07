@@ -28,6 +28,9 @@
       <div class="text-center text-gray-400">
         {{ reply.text }}
       </div>
+      <div>
+        <router-link :to="`/comments/${reply.id}`" class="relative bg-gray-500 text-white p-3 rounded-lg text-sm uppercase font-semibold tracking-tight overflow-visible">Reply <div class="absolute -top-3 -right-3 px-2.5 py-0.5 bg-green-500 rounded-full text-xs">{{ replies.length }}</div></router-link>
+      </div>
     </div>
 
     <div class="w-2/3 bg-white p-2 pt-4 rounded shadow-lg">
@@ -111,6 +114,7 @@ export default {
       }).then((response) => {
         this.replies.push({
           created_at: response.data.created_at,
+          id: response.data.id,
           text: response.data.text,
           user: this.replier
         });
