@@ -55,6 +55,12 @@
     docker-compose up -d --build
 ```
 
+<p align="center">Install Laravel dependencies</p>
+
+```bash
+    docker-compose run --rm composer install
+```
+
 <p align="center">Run Laravel migrations/seeders</p>
 
 ```bash
