@@ -1,15 +1,27 @@
 import VueRouter from 'vue-router';
 
-import Comment from './pages/Comment.vue';
-import Post from './pages/Post.vue';
-import Reply from './pages/Reply.vue';
+import ShowPost from './pages/Post/ShowPost.vue';
+import IndexPost from './pages/Post/IndexPost.vue';
+
+const PostContext = [
+    { path: '/posts', component: IndexPost },
+    { path: '/posts/:id', component: ShowPost }
+];
+
+import Home from './pages/Home.vue';
+import Project from './pages/Project.vue';
+import Contact from './pages/Contact.vue';
+
+const NavContext = [
+    { path: '/', component: Home },
+    { path: '/projects', component: Project },
+    { path: '/contact', component: Contact }
+]
 
 export default new VueRouter({
     mode: 'history',
     routes: [
-        { path: '/', component: Post },
-        { path: '/posts', component: Post },
-        { path: '/posts/:id', component: Comment },
-        { path: '/comments/:id', component: Reply }
+        ...NavContext,
+        ...PostContext,
     ]
 });

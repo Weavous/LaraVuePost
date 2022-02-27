@@ -20,7 +20,7 @@
           </div>
       </div>
       <div class="flex flex-col items-center">
-          <img class="mb-3 w-12 h-12 rounded-full shadow-lg" :src="avatar" alt="Avatar">
+          <img class="mb-3 w-12 h-12 rounded-full shadow-lg" :src="avatar" alt="User Photo">
           <h3 class="mb-1 text-sm font-medium text-gray-900 dark:text-white">{{ name }}</h3>
           <span class="text-xs text-gray-500 dark:text-gray-400">{{ new Date(created_at).toGMTString() }}</span>
       </div>
