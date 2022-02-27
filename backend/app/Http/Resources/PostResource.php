@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Models\Comment;
+
 class PostResource extends JsonResource
 {
     /**
@@ -22,7 +24,7 @@ class PostResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'user' => $this->user,
-            'comments' => CommentResource::collection($this->comments)
+            'comments' => CommentResource::collection($this->comments->SortByDesc(fn (Comment $comment) => $comment->id))
         ];
     }
 }

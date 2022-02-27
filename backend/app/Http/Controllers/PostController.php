@@ -11,6 +11,8 @@ use App\Models\Post;
 
 use App\Http\Resources\PostResource;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class PostController extends Controller
 {
     /**
@@ -21,7 +23,7 @@ class PostController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            PostResource::collection(Post::all())
+            PostResource::collection(Post::orderBy((new Post())->getKeyName(), 'DESC')->get())
         );
     }
 
@@ -33,7 +35,24 @@ class PostController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        return response()->json([]);
+        $payload = $request->only((new Post())->getFillable());
+
+        $validator = Validator::make($payload, [
+            'name' => 'required|string|max:64',
+            'text' => 'required|string|min:64|max:512',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => json_decode($validator->errors()->toJson())
+            ], Response::HTTP_BAD_REQUEST)->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }
+
+        $post = Post::create($request->all());
+
+        return response()->json(new PostResource($post), Response::HTTP_CREATED);
     }
 
     /**

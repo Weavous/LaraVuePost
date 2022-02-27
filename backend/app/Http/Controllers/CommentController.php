@@ -39,9 +39,10 @@ class CommentController extends Controller
         $payload = $request->only((new Comment())->getFillable());
 
         $validator = Validator::make($payload, [
-            'comment_id' => 'required|exists:comments,id',
+            'post_id' => 'sometimes|exists:posts,id',
+            'comment_id' => 'sometimes|exists:comments,id',
             'user_id' => 'required|exists:users,id',
-            'text' => 'required|string'
+            'text' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -51,12 +52,16 @@ class CommentController extends Controller
             ], Response::HTTP_BAD_REQUEST)->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         }
 
-        $resource = Comment::create([
+        $comment = Comment::find($request->comment_id);
+
+        $post = $comment instanceof Comment ? $comment->post :  Post::find($request->post_id);
+
+        $comment = Comment::create([
             ...$payload,
-            'post_id' => Comment::find($request->comment_id)->post_id
+            'post_id' => $post->id
         ]);
 
-        return response()->json($resource, Response::HTTP_CREATED);
+        return response()->json(new CommentResource($comment), Response::HTTP_CREATED);
     }
 
     /**
