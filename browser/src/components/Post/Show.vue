@@ -1,5 +1,5 @@
 <template>
-    <div aria-label="card 3" tabindex="0" class="focus:outline-none lg:mb-1 mb-7 bg-white p-6 shadow rounded">
+    <div aria-label="card 3" tabindex="0" class="focus:outline-none lg:mr-10 lg:mb-1 mb-7 bg-white p-6 shadow rounded">
         <div class="flex items-center border-b border-gray-200 pb-6">
             <img class="w-12 h-12 rounded-full flex flex-shrink-0" :src="avatar">
             <div class="flex items-start justify-between w-full">
@@ -43,6 +43,10 @@ export default {
             type: String,
             required: true
         },
+        replies: {
+            type: Number,
+            required: true
+        },
         avatar: {
             type: String,
             required: true
@@ -51,7 +55,8 @@ export default {
             type: String,
             required: true
         }
-    }
+    },
+    methods: { }
 }
 </script>
 

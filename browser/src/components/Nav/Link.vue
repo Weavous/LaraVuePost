@@ -33,11 +33,7 @@ export default {
   },
   methods: {
     current() {
-      if (this.$route.path === "/") {
-        return "/";
-      }
-
-      return this.$route.matched.find((n) => n).path;
+      return this.$route.path === "/" ? this.$route.path: this.$route.matched.find((n) => n).path;
     },
   },
 };

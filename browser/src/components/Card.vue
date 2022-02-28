@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl h-40">
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-4xl lg:max-w-4xl">
     <div class="grid grid-cols-3 gap-4">
       <div class="md:shrink-0 min-h-full">
         <User :name="name" :created_at="created_at" :avatar="avatar"></User>
@@ -11,7 +11,9 @@
             <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{ title }}</a>
           </div>
           <div class="flex justify-center items-center">
-            <router-link :to="`/posts/${id}`" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Open</router-link>
+            <router-link :to="`/posts/${id}`" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              Open <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-gray-700 rounded">{{ quantity }}</span>
+            </router-link>
           </div>
         </div>
         <p class="mt-2 text-slate-500">{{ text }}</p>
@@ -48,6 +50,10 @@ export default {
     },
     text: {
       type: String,
+      required: true
+    },
+    quantity: {
+      type: Number,
       required: true
     }
   },

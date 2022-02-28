@@ -13,7 +13,7 @@
         <p class="p-6 text-lg text-gray-500 dark:text-gray-300">Comments</p>
 
         <div class="p-6 items-center justify-center w-full">
-          <Comment v-for="(comment, key) in http.post.comments" :key="key" :id="comment.id" :name="comment.user.name" :text="comment.text" :avatar="comment.user.avatar" :created_at="comment.created_at" :replies="comment.comment ? comment.comment.length: 0"></Comment>
+          <Comment v-for="(comment, key) in http.post.comments" :key="key" :id="comment.id" :name="comment.user.name" :text="comment.text" :avatar="comment.user.avatar" :created_at="comment.created_at"></Comment>
         </div>
 
         <Create :post_id="parseInt($route.params.id)" @oncreate="oncreate"></Create>

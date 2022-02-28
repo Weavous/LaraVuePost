@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="w-2/3 bg-gray p-2 pt-4 rounded shadow-lg mb-16" v-for="(reply, key) in replies" :key="key">
+    <div class="w-2/3 bg-gray p-2 pt-4 rounded shadow-lg mb-4 h-min-full p-6" v-for="(reply, key) in replies" :key="key">
       <div class="flex ml-3">
         <div class="mr-3">
           <img :src="reply.user.avatar" alt="Avatar" class="rounded-full h-16">
@@ -29,23 +29,27 @@
         {{ reply.text }}
       </div>
       <div>
-        <router-link :to="`/comments/${reply.id}`" class="relative bg-gray-500 text-white p-3 rounded-lg text-sm uppercase font-semibold tracking-tight overflow-visible">Reply <div class="absolute -top-3 -right-3 px-2.5 py-0.5 bg-green-500 rounded-full text-xs">{{ replies.length }}</div></router-link>
+        <router-link :to="`/comments/${reply.id}`" class="relative bg-gray-500 text-white p-3 rounded-lg text-sm uppercase font-semibold tracking-tight overflow-visible">Reply</router-link>
       </div>
     </div>
 
     <div class="w-2/3 bg-white p-2 pt-4 rounded shadow-lg">
-      <div class="flex ml-3 mb-8">
-        <div class="mr-3">
-          <img :src="replier.avatar" alt="Avatar" class="rounded-full h-16">
+      <div class="grid grid-cols-7 gap-4 p-7">
+        <div class="flex" v-if="reply.user.id > 0">
+          <div class="mr-3 w-24 flex justify-center">
+            <img :src="reply.user.avatar" alt="Avatar" class="rounded-full w-16 h-16">
+          </div>
+          <div>
+            <h1 class="font-semibold">{{ reply.user.name }}</h1>
+            <p class="text-xs text-gray-500">{{ new Date(reply.user.created_at).toGMTString() }}</p>
+          </div>
         </div>
-        <div>
-          <h1 class="font-semibold">{{ replier.name }}</h1>
-          <p class="text-xs text-gray-500">{{ new Date(replier.created_at).toGMTString() }}</p>
+        <div class="col-span-6">
+          <Select @choose="choose"></Select>
         </div>
-        <Select @choose="choose"></Select>
       </div>
 
-      <div class="mt-3 p-3 w-full">
+      <div class="mt-3 p-6 w-full">
         <textarea rows="3" class="border p-2 rounded w-full" placeholder="Write something..." v-model="reply.text"></textarea>
       </div>
 
@@ -55,27 +59,35 @@
             <span>Submit</span>
           </button>
         </div>
+        <div v-if="comment.comment_id > 0">
+          <router-link :to="`/comments/${comment.comment_id}`" class="text-indigo-600 hover:text-indigo-900">Back</router-link>
+        </div>
+        <div v-else>
+          <router-link :to="`/posts/${comment.post_id}`" class="text-indigo-600 hover:text-indigo-900">Back</router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import comment from "../http/comment.js";
-import reply from "../http/reply.js";
+import comment from "../../http/comment.js";
+import Comment from "../../validations/comment";
 
-import Select from '../components/Select.vue';
+import reply from "../../http/reply.js";
+
+import Select from '../../components/Select.vue';
 
 export default {
-  name: "Reply",
+  name: "ShowComment",
   data() {
     return {
       comment: {
         user: {}
       },
-      replier: {},
       replies: [],
       reply: {
+        user: {},
         comment_id: this.$route.params.id,
         text: ""
       }
@@ -93,16 +105,19 @@ export default {
       this.replies = response.data;
     });
   },
-  methods: {
-    replyTo() {
-      if (typeof this.replier.id === typeof undefined) {
-        alert("Please, choose an user!");
-
-        return false;
+  watch: {
+    $route(to, from) { 
+      if (to !== from) {
+        location.reload();
       }
+    }
+  },
+  methods: {
+    replyTo() {     
+      const CommentValidator = new Comment(this.reply.text, this.reply.user.id, null, this.reply.comment_id);
 
-      if (typeof this.reply.text.length === 0) {
-        alert("The reply content cannot be empty!");
+      if (CommentValidator.failsOnComment()) {
+        alert("Check the form fields. One or more fields are missing or incorrect");
 
         return false;
       }
@@ -110,21 +125,21 @@ export default {
       comment.store({
         comment_id: this.reply.comment_id,
         text: this.reply.text,
-        user_id : this.replier.id
+        user_id : this.reply.user.id
       }).then((response) => {
-        this.replies.push({
+        this.replies.unshift({
           created_at: response.data.created_at,
           id: response.data.id,
           text: response.data.text,
-          user: this.replier
+          user: this.reply.user
         });
       });
     },
     choose(user) {
-      this.replier = user;
+      this.reply.user = user;
     }
   }
 };
 </script>
 
-<style></style>
+<style scoped></style>

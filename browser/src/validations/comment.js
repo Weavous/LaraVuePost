@@ -15,7 +15,7 @@ export default class Comment {
     }
 
     checkText() {
-        return this.text.length <= 128;
+        return this.text.length > 0 && this.text.length <= 128;
     }
 
     checkUser() {

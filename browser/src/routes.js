@@ -8,6 +8,12 @@ const PostContext = [
     { path: '/posts/:id', component: ShowPost }
 ];
 
+import ShowComment from './pages/Comment/ShowComment.vue';
+
+const CommentContext = [
+    { path: '/comments/:id', component: ShowComment },
+];
+
 import Home from './pages/Home.vue';
 import Project from './pages/Project.vue';
 import Contact from './pages/Contact.vue';
@@ -23,5 +29,6 @@ export default new VueRouter({
     routes: [
         ...NavContext,
         ...PostContext,
+        ...CommentContext
     ]
 });
