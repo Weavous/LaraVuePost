@@ -117,7 +117,7 @@ export default {
       const CommentValidator = new Comment(this.reply.text, this.reply.user.id, null, this.reply.comment_id);
 
       if (CommentValidator.failsOnComment()) {
-        alert("Check the form fields. One or more fields are missing or incorrect");
+        alert(CommentValidator.message());
 
         return false;
       }
@@ -127,12 +127,7 @@ export default {
         text: this.reply.text,
         user_id : this.reply.user.id
       }).then((response) => {
-        this.replies.unshift({
-          created_at: response.data.created_at,
-          id: response.data.id,
-          text: response.data.text,
-          user: this.reply.user
-        });
+        this.replies.unshift(response.data);
       });
     },
     choose(user) {

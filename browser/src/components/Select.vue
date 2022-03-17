@@ -68,6 +68,7 @@ export default {
         this.items = response.data;
 
         this.active = this.items.find(n => n);
+        this.choose(this.active.id);
       })
   }
 };

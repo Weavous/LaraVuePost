@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-use Illuminate\Support\Facades\Validator;
-
 use App\Models\Post;
 
 use App\Http\Resources\PostResource;
+
+use App\Http\Requests\StorePostRequest;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,24 +33,9 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): JsonResponse
+    public function store(StorePostRequest $request): JsonResponse
     {
-        $payload = $request->only((new Post())->getFillable());
-
-        $validator = Validator::make($payload, [
-            'name' => 'required|string|max:64',
-            'text' => 'required|string|min:64|max:512',
-            'user_id' => 'required|exists:users,id',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'error' => json_decode($validator->errors()->toJson())
-            ], Response::HTTP_BAD_REQUEST)->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        }
-
-        $post = Post::create($request->all());
+        $post = Post::create($request->only((new Post())->getFillable()));
 
         return response()->json(new PostResource($post), Response::HTTP_CREATED);
     }

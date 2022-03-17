@@ -20,4 +20,20 @@ export default class Post {
     checkText() {
         return this.text.length >= 64 && this.text.length <= 512;
     }
+
+    message() {
+        if (!this.checkUser()) {
+            return "Check the user combo again, an error occuried!";
+        }
+
+        if (!this.checkTitle()) {
+            return "You must create a title for your post!";
+        }
+
+        if (!this.checkText()) {
+            return "The post text must to be between 64 and 512 characters!";
+        }
+
+        return "Check the form fields. One or more fields are missing or incorrect";
+    }
 }

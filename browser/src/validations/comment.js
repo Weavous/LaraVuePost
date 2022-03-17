@@ -29,4 +29,8 @@ export default class Comment {
     checkPost() {
         return [0, null, undefined].includes(this.post_id) === false;
     }
+
+    message() {
+        return "Check the form fields. One or more fields are missing or incorrect";
+    }
 }

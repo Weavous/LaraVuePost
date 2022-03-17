@@ -23,7 +23,6 @@ class PostFactory extends Factory
         ];
     }
 
-
     /**
      * Links the App\Model\User to post.
      *

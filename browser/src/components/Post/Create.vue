@@ -59,7 +59,7 @@ export default {
       const PostValidator = new Post(this.form.name, this.form.text, this.form.user_id);
 
       if (PostValidator.fails()) {
-        alert("Check the form fields. One or more fields are missing or incorrect");
+        alert(PostValidator.message());
 
         return false;
       }
